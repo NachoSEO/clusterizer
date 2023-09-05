@@ -81,7 +81,12 @@ Cluster 6:
   - anydesk download free
   - anydesk free download
 ```
-### Shortcut to get the output in a file
+### Modes
+There are three different output modes:
+* logs: Run `pnpm run logs` and the output will be printed in the console
+* csv: Run `pnpm run csv` and the output will be safe as a csv in `out.csv`
+* text: Run `pnpm run text` and the output will be safe as a txt in `out.txt`
+
 To have the output in a file you can use this shell command
 ```sh
 node index.js > out.txt

@@ -1,5 +1,5 @@
 {
-	"author": "Nacho Mascort <nacho.mascort@gmail.com>",
+  "author": "Nacho Mascort <nacho.mascort@gmail.com>",
   "type": "module",
   "dependencies": {
     "@tensorflow-models/universal-sentence-encoder": "^1.3.3",
@@ -8,9 +8,15 @@
     "@tensorflow/tfjs-core": "^3.9.0",
     "@tensorflow/tfjs-node": "^3.9.0",
     "density-clustering": "^1.3.0",
+    "readline": "^1.3.0",
     "seedrandom": "^3.0.5",
     "stemmer": "^2.0.1",
     "stopword": "^2.0.8",
     "words-n-numbers": "^7.1.2"
+  },
+  "scripts": {
+    "logs": "node index.js logs",
+    "csv": "node index.js csv",
+    "txt": "node index.js txt"
   }
 }
