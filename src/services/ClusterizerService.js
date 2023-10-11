@@ -12,15 +12,20 @@ export default class ClusterizerService {
     // Print clustered keywords
     clusters.forEach((cluster, i) => {
       if (mode === 'logs') {
-        console.log(`Cluster ${i + 1}:`);
+        console.log(`${clusterName}:`);
       }
-      cluster.forEach(async pointIndex => {
+      let clusterName;
+      cluster.forEach(async (pointIndex, index) => {
+        if(index === 0) {
+          clusterName = updatedData[pointIndex].query
+        }
+
         if (mode === 'logs') {
           console.log(`  - ${updatedData[pointIndex].query}`);
         } else if (mode === 'csv') {
-          await this.fileRepository.appendFile({ path: './src/output/out.csv', data: `Cluster ${i + 1},${updatedData[pointIndex].query}\n` })
+          await this.fileRepository.appendFile({ path: './src/output/out.csv', data: `${clusterName},${updatedData[pointIndex].query}\n` })
         } else if (mode === 'txt') {
-          await this.fileRepository.appendFile({ path: './src/output/out.txt', data: `Cluster ${i + 1},${updatedData[pointIndex].query}\n` })
+          await this.fileRepository.appendFile({ path: './src/output/out.txt', data: `${clusterName},${updatedData[pointIndex].query}\n` })
         }
       });
     });
