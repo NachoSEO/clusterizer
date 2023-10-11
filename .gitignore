@@ -1,1 +1,3 @@
 node_modules
+src/output/*
+!src/output/.gitkeep
