@@ -62,22 +62,27 @@ The return will give you this output:
 If you don't modify the code you will see in your terminal the different clusters, like this:
 
 ```sh
-Cluster 1:
+9app:
   - 9app
   - 9apps
-Cluster 2:
+
+adobe flash player descargar:
   - adobe flash player descargar
   - descargar adobe flash player
-Cluster 3:
+
+among us download pc:
   - among us download pc
   - among us pc download
-Cluster 4:
+
+anydesk descargar:
   - anydesk descargar
   - descargar anydesk
-Cluster 5:
+
+anydesk download:
   - anydesk download
   - download anydesk
-Cluster 6:
+
+anydesk download free:
   - anydesk download free
   - anydesk free download
 ```

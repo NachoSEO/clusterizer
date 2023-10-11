@@ -11,13 +11,13 @@ export default class ClusterizerService {
 
     // Print clustered keywords
     clusters.forEach((cluster, i) => {
-      if (mode === 'logs') {
-        console.log(`${clusterName}:`);
-      }
       let clusterName;
       cluster.forEach(async (pointIndex, index) => {
         if(index === 0) {
           clusterName = updatedData[pointIndex].query
+          if (mode === 'logs') {
+            console.log(`\n${clusterName}:`);
+          }
         }
 
         if (mode === 'logs') {
