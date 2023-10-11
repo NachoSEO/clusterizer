@@ -17,7 +17,7 @@ If you run `npm install` or `pnpm install` the repo will install all the necessa
 To run the clustering on your own data, modify the `kws.js` file to contain your desired keywords, then run the script using Node.js:
 
 ```js
-node index.js
+node ./src/index.js
 ```
 
 ### Output
@@ -89,7 +89,7 @@ There are three different output modes:
 
 To have the output in a file you can use this shell command
 ```sh
-node index.js > out.txt
+node ./src/index.js > out.txt
 ```
 
 The output will display the updated data with cluster assignments and a list of clusters with their corresponding keywords. The output will also display any noise points that were not assigned to any cluster.
