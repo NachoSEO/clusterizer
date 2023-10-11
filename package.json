@@ -15,8 +15,8 @@
     "words-n-numbers": "^7.1.2"
   },
   "scripts": {
-    "logs": "node index.js logs",
-    "csv": "node index.js csv",
-    "txt": "node index.js txt"
+    "logs": "node ./src/index.js logs",
+    "csv": "node ./src/index.js csv",
+    "txt": "node ./src/index.js txt"
   }
 }
