@@ -5,16 +5,19 @@ export default class ClusterizerService {
   }
 
   async execute({ mode }) {
-    const keywords = await this._formatTextFile({ path:'./src/input/kws.txt' })
+    const keywords = await this._formatTextFile({ path: './src/input/kws.txt' });
     const { updatedData, clusters } = await this.clusterizerRepository.clusterize({ keywords });
-    await this.fileRepository.createFile({ mode })
+    await this.fileRepository.createFile({ mode });
 
-    // Print clustered keywords
-    clusters.forEach((cluster, i) => {
+    const clusterPromises = clusters.map(async (cluster, i) => {
       let clusterName;
-      cluster.forEach(async (pointIndex, index) => {
-        if(index === 0) {
-          clusterName = updatedData[pointIndex].query
+      const pointPromises = [];
+
+      for (let index = 0; index < cluster.length; index++) {
+        const pointIndex = cluster[index];
+
+        if (index === 0) {
+          clusterName = updatedData[pointIndex].query;
           if (mode === 'logs') {
             console.log(`\n${clusterName}:`);
           }
@@ -22,34 +25,40 @@ export default class ClusterizerService {
 
         if (mode === 'logs') {
           console.log(`  - ${updatedData[pointIndex].query}`);
-        } else if (mode === 'csv') {
-          await this.fileRepository.appendFile({ path: './src/output/out.csv', data: `${clusterName},${updatedData[pointIndex].query}\n` })
-        } else if (mode === 'txt') {
-          await this.fileRepository.appendFile({ path: './src/output/out.txt', data: `${clusterName},${updatedData[pointIndex].query}\n` })
+        } else {
+          const filePath = mode === 'csv' ? './src/output/out.csv' : './src/output/out.txt';
+          const data = `${clusterName},${updatedData[pointIndex].query}\n`;
+          pointPromises.push(this.fileRepository.appendFile({ path: filePath, data }));
         }
-      });
+      }
+
+      await Promise.all(pointPromises);
     });
+
+    await Promise.all(clusterPromises);
 
     // Handle noise points (not assigned to any cluster)
     const noise = clusters
       .flat()
       .filter((_, index) => !clusters.some(cluster => cluster.includes(index)));
 
-    if (noise.length > 0) {
-      if (mode === 'logs') {
-        console.log('Noise:');
-      }
-      noise.forEach(async pointIndex => {
-        if (mode === 'logs') {
-          console.log(`  - ${updatedData[pointIndex].query}`);
-        } else if (mode === 'csv') {
-          await this.fileRepository.appendFile({ path: './src/output/out.csv', data: `Noise,${updatedData[pointIndex].query}\n` })
-        } else if (mode === 'txt') {
-          await this.fileRepository.appendFile({ path: './src/output/out.txt', data: `Noise,${updatedData[pointIndex].query}\n` })
-        }
-      });
+    if (noise.length > 0 && mode === 'logs') {
+      console.log('Noise:');
     }
+
+    const noisePromises = noise.map(async pointIndex => {
+      if (mode === 'logs') {
+        console.log(`  - ${updatedData[pointIndex].query}`);
+      } else {
+        const filePath = mode === 'csv' ? './src/output/out.csv' : './src/output/out.txt';
+        const data = `Noise,${updatedData[pointIndex].query}\n`;
+        await this.fileRepository.appendFile({ path: filePath, data });
+      }
+    });
+
+    await Promise.all(noisePromises);
   }
+
 
   async _formatTextFile({ path }) {
     const textData = await this.fileRepository.readTextFile({ path })
