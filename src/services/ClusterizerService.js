@@ -1,12 +1,12 @@
 export default class ClusterizerService {
-  constructor({ clusterizerRepository, fileRepository, keywords }) {
+  constructor({ clusterizerRepository, fileRepository }) {
     this.clusterizerRepository = clusterizerRepository;
     this.fileRepository = fileRepository;
-    this.keywords = keywords;
   }
 
   async execute({ mode }) {
-    const { updatedData, clusters } = await this.clusterizerRepository.clusterize({ keywords: this.keywords });
+    const keywords = await this._formatTextFile({ path:'./src/input/kws.txt' })
+    const { updatedData, clusters } = await this.clusterizerRepository.clusterize({ keywords });
     await this.fileRepository.createFile({ mode })
 
     // Print clustered keywords
@@ -49,5 +49,10 @@ export default class ClusterizerService {
         }
       });
     }
+  }
+
+  async _formatTextFile({ path }) {
+    const textData = await this.fileRepository.readTextFile({ path })
+    return textData.split('\n');
   }
 }

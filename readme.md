@@ -20,47 +20,14 @@ To run the clustering on your own data, modify the `kws.js` file to contain your
 node ./src/index.js
 ```
 
-### Output
+## Output
+### Modes
+There are three different output modes:
+* logs: Run `pnpm run logs` and the output will be printed in the console
+* csv: Run `pnpm run csv` and the output will be safe as a csv in `out.csv`
+* text: Run `pnpm run txt` and the output will be safe as a txt in `out.txt`
 
-The return will give you this output:
-
-```sh
-[
-  {
-    query: 'battleground mobile india download',
-    tokens: [ 'battleground', 'mobile', 'india', 'download' ],
-    stem: 'battleground download india mobil',
-    cluster: 'Cluster 9'
-  },
-  {
-    query: 'battlegrounds mobile india downloadable content',
-    tokens: [ 'battlegrounds', 'mobile', 'india', 'downloadable', 'content' ],
-    stem: 'battleground content download india mobil',
-    cluster: 'Cluster 9'
-  },
-  {
-    query: 'beamng drive download',
-    tokens: [ 'beamng', 'drive', 'download' ],
-    stem: 'beamng download drive',
-    cluster: 'Cluster 10'
-  },
-  {
-    query: 'beamng drive free download',
-    tokens: [ 'beamng', 'drive', 'free', 'download' ],
-    stem: 'beamng download drive free',
-    cluster: 'Cluster 10'
-  },
-  {
-    query: 'bijoy bayanno',
-    tokens: [ 'bijoy', 'bayanno' ],
-    stem: 'bayanno bijoi',
-    cluster: 'Noise'
-  },
-]
-```
-
-If you don't modify the code you will see in your terminal the different clusters, like this:
-
+Logs example:
 ```sh
 9app:
   - 9app
@@ -86,11 +53,6 @@ anydesk download free:
   - anydesk download free
   - anydesk free download
 ```
-### Modes
-There are three different output modes:
-* logs: Run `pnpm run logs` and the output will be printed in the console
-* csv: Run `pnpm run csv` and the output will be safe as a csv in `out.csv`
-* text: Run `pnpm run txt` and the output will be safe as a txt in `out.txt`
 
 To have the output in a file you can use this shell command
 ```sh

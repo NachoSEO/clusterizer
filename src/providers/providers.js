@@ -8,8 +8,6 @@ import { extract, numbers, words } from 'words-n-numbers';
 import { eng, removeStopwords, spa } from 'stopword';
 import { DBSCAN } from 'density-clustering';
 
-import keywords from '../input/kws.js'
-
 import ClusterizerCommand from '../commands/ClusterizerCommand.js'
 
 import ClusterizerService from '../services/ClusterizerService.js'
@@ -38,8 +36,7 @@ export default new ClusterizerCommand({
     }),
     fileRepository: new FileRepository({
       fs
-    }),
-    keywords
+    })
   }),
   loadingEventEmitter
 });

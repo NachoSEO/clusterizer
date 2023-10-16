@@ -3,7 +3,7 @@ export default class FileRepository {
     this.fs = fs;
   }
 
-  async createFile({ mode, path }) {
+  async createFile({ mode }) {
     if (mode === 'csv') {
       await this.fs.promises.writeFile('./src/output/out.csv', '');
     } else if (mode === 'txt') {
@@ -13,5 +13,9 @@ export default class FileRepository {
 
   async appendFile({ path, data }) {
     await this.fs.promises.appendFile(path, data);
+  }
+
+  async readTextFile({ path }) {
+    return this.fs.promises.readFile(path, 'utf8');
   }
 }
